@@ -10,11 +10,33 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            ProductTest();
-            BrandTest();
-            ColorTest();
+            //ProductTest();
+            //BrandTest();
+            //ColorTest();
+
+            RentalTest();
+
         }
 
+        private static void RentalTest()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            Rental rental1 = new Rental() { CarId = 1, CustomerId = 1, Id = 1, RentDate = 2019 , ReturnDate = 2020 };
+            Rental rental2 = new Rental()
+            {
+                CarId = 2,CustomerId = 1,
+                Id = 2,RentDate = 2021
+            };
+
+            rentalManager.Add(rental1);
+            rentalManager.Add(rental2);
+            rental1.Id = 3;
+            rental2.Id = 4;           
+            rentalManager.Add(rental1);
+            rentalManager.Add(rental2);
+
+
+        }
 
         private static void ProductTest()
         {

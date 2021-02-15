@@ -16,7 +16,6 @@ namespace Bussiness.Concrete
         public ProductManager(IProductDal productDal)
         {
             _productDal = productDal;
-
         }
 
         public IResult Add(Car car)
