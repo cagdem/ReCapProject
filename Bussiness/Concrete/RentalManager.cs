@@ -21,7 +21,7 @@ namespace Bussiness.Concrete
             _rentalDal = rentalDal;
         }
 
-        [ValidationAspect(typeof(ProductValidator))]
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
             var temp = _rentalDal.GetAll(r => r.CarId == rental.CarId && r.ReturnDate == null);
@@ -45,7 +45,7 @@ namespace Bussiness.Concrete
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.RentalListed);
         }
 
-        [ValidationAspect(typeof(ProductValidator))]
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Update(Rental rental)
         {
             _rentalDal.Update(rental);

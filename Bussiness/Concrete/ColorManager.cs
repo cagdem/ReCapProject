@@ -21,7 +21,7 @@ namespace Bussiness.Concrete
             _colorDal = colorDal;
         }
 
-        [ValidationAspect(typeof(ProductValidator))]
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Add(Color color)
         {
             _colorDal.Add(color);
@@ -44,7 +44,7 @@ namespace Bussiness.Concrete
             return new SuccessDataResult<Color>(_colorDal.Get(c => c.ColorId == id));
         }
 
-        [ValidationAspect(typeof(ProductValidator))]
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Update(Color color)
         {
             _colorDal.Update(color);

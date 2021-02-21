@@ -21,7 +21,7 @@ namespace Bussiness.Concrete
             _userDal = userDal;
         }
 
-        [ValidationAspect(typeof(ProductValidator))]
+        [ValidationAspect(typeof(UserValidator))]
         public IResult Add(User user)
         {
             _userDal.Add(user);
@@ -39,7 +39,7 @@ namespace Bussiness.Concrete
             return new SuccessDataResult<List<User>>(_userDal.GetAll(), Messages.UserListed);
         }
 
-        [ValidationAspect(typeof(ProductValidator))]
+        [ValidationAspect(typeof(UserValidator))]
         public IResult Update(User user)
         {
             _userDal.Update(user);

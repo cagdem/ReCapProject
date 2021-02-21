@@ -20,7 +20,7 @@ namespace Bussiness.Concrete
             _brandDal = brandDal;
         }
 
-        [ValidationAspect(typeof(ProductValidator))]
+        [ValidationAspect(typeof(BrandValidator))]
         public IResult Add(Brand brand)
         {
             _brandDal.Add(brand);
@@ -43,7 +43,7 @@ namespace Bussiness.Concrete
             return new SuccessDataResult<Brand>(_brandDal.Get(b => b.BrandId == id));
         }
 
-        [ValidationAspect(typeof(ProductValidator))]
+        [ValidationAspect(typeof(BrandValidator))]
         public IResult Update(Brand brand)
         {
             _brandDal.Update(brand);
