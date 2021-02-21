@@ -1,6 +1,7 @@
 ﻿using Bussiness.Abstract;
 using Bussiness.Constants;
 using Bussiness.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -21,10 +22,9 @@ namespace Bussiness.Concrete
             _productDal = productDal;
         }
 
+        [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Car car)
         {
-
-            ValidationTool.Validate(new ProductValidator(), car);
             _productDal.Add(car);
             return new SuccessResult(Messages.ProductAdded);
         }
@@ -60,9 +60,10 @@ namespace Bussiness.Concrete
             return new SuccessDataResult<List<Car>>(_productDal.GetAll(c => c.ColorId == id), Messages.ProductListed);
         }
 
+        [ValidationAspect(typeof(ProductValidator))]
+
         public IResult Update(Car car)
         {
-            ValidationTool.Validate(new ProductValidator(), car);
             _productDal.Update(car);
             return new SuccessResult(Messages.ProductUpdated);
         }

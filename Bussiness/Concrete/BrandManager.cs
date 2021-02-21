@@ -1,6 +1,7 @@
 ﻿using Bussiness.Abstract;
 using Bussiness.Constants;
 using Bussiness.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -19,9 +20,9 @@ namespace Bussiness.Concrete
             _brandDal = brandDal;
         }
 
+        [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Brand brand)
         {
-            ValidationTool.Validate(new BrandValidator(), brand);
             _brandDal.Add(brand);
             return new SuccessResult(Messages.ProductAdded);
         }
@@ -42,9 +43,9 @@ namespace Bussiness.Concrete
             return new SuccessDataResult<Brand>(_brandDal.Get(b => b.BrandId == id));
         }
 
+        [ValidationAspect(typeof(ProductValidator))]
         public IResult Update(Brand brand)
         {
-            ValidationTool.Validate(new BrandValidator(), brand);
             _brandDal.Update(brand);
             return new SuccessResult(Messages.ProductUpdated);
         }

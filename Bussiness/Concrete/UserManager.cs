@@ -1,6 +1,7 @@
 ﻿using Bussiness.Abstract;
 using Bussiness.Constants;
 using Bussiness.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -20,9 +21,9 @@ namespace Bussiness.Concrete
             _userDal = userDal;
         }
 
+        [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(User user)
         {
-            ValidationTool.Validate(new UserValidator(), user);
             _userDal.Add(user);
             return new SuccessResult(Messages.UserAdded);
         }
@@ -38,9 +39,9 @@ namespace Bussiness.Concrete
             return new SuccessDataResult<List<User>>(_userDal.GetAll(), Messages.UserListed);
         }
 
+        [ValidationAspect(typeof(ProductValidator))]
         public IResult Update(User user)
         {
-            ValidationTool.Validate(new UserValidator(), user);
             _userDal.Update(user);
             return new SuccessResult(Messages.UserUpdated);
         }
