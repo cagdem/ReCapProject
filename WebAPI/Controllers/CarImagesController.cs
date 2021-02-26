@@ -29,23 +29,28 @@ namespace WebAPI.Controllers
         [HttpPost("add")]
         public IActionResult Add([FromForm] FileUpload image, [FromForm] CarImage carImage)
         {
-            string path = _webHostEnvironment.WebRootPath + "\\uploads\\";
-
-            if (image.files.Length > 0)
+            var path = _webHostEnvironment.WebRootPath + "\\uploads\\";
+            string imagePath = null;
+            if (image.files != null)
             {
+                string ext = System.IO.Path.GetExtension(image.files.FileName);
+                string name = Guid.NewGuid().ToString();
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
                 }
-                using (FileStream fileStream = System.IO.File.Create(path + image.files.FileName))
+                using (FileStream fileStream = System.IO.File.Create(path + name + ext))
                 {
                     image.files.CopyTo(fileStream);
                     fileStream.Flush();
                 }
+
+                imagePath = path + name + ext;
             }
-            var tempCarImage = new CarImage { Id= carImage.Id, CarId = carImage.CarId, ImagePath = path, Date = DateTime.Now };
+
+            var tempCarImage = new CarImage { Id = carImage.Id, CarId = carImage.CarId, ImagePath = imagePath, Date = DateTime.Now };
             var result = _carImageService.Add(tempCarImage);
-            
+
             if (result.Success)
             {
                 return Ok();
@@ -54,5 +59,46 @@ namespace WebAPI.Controllers
             return BadRequest();
 
         }
+
+        [HttpPost("delete")]
+        public IActionResult Delete(CarImage carImage)
+        {
+            var result = _carImageService.Delete(carImage);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("update")]
+        public IActionResult Update(CarImage carImage)
+        {
+            var result = _carImageService.Update(carImage);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("list")]
+        public IActionResult List(int id)
+        {
+            var result = _carImageService.GetById(id);
+            foreach (var image in result.Data)
+            {
+                if (image.ImagePath == null)
+                {
+                    image.ImagePath = _webHostEnvironment.WebRootPath + "\\uploads\\default.jpg";
+                }
+            }
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
     }
 }

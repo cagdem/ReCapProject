@@ -26,5 +26,7 @@ namespace Bussiness.Constants
         public static string RentalListed = "Kiralik listelendi.";
         public static string RentalUpdated = "Kiralik guncellendi.";
         public static string RentalDenied = "Araba musait degil.";
+        public static string ImageLimitExceded = "5 fotograftan fazla yuklenemez.";
+        internal static string ImageAlreadyNull = "Lutfen fotograf ekleyin.";
     }
 }
