@@ -1,5 +1,6 @@
 ﻿using Bussiness.Abstract;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -19,7 +20,6 @@ namespace WebAPI.Controllers
         {
             _productService = productService;
         }
-
 
         [HttpGet("getall")]
         public IActionResult GetAll()

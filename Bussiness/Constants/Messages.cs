@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Bussiness.Constants
@@ -27,6 +28,7 @@ namespace Bussiness.Constants
         public static string RentalUpdated = "Kiralik guncellendi.";
         public static string RentalDenied = "Araba musait degil.";
         public static string ImageLimitExceded = "5 fotograftan fazla yuklenemez.";
-        internal static string ImageAlreadyNull = "Lutfen fotograf ekleyin.";
+        public static string ImageAlreadyNull = "Lutfen fotograf ekleyin.";
+        public static string AuthorizationDenied = "yetkiniz yok";
     }
 }

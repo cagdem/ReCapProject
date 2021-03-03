@@ -22,6 +22,7 @@ namespace Bussiness.Concrete
             _productDal = productDal;
         }
 
+        [SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Car car)
         {
