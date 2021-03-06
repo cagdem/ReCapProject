@@ -1,4 +1,5 @@
 ﻿using Bussiness.Abstract;
+using Bussiness.BusinessAspects;
 using Bussiness.Constants;
 using Bussiness.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -36,6 +37,7 @@ namespace Bussiness.Concrete
             return new SuccessResult(Messages.ProductDeleted);
         }
 
+        [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
             return new SuccessDataResult<List<Car>>(_productDal.GetAll(), Messages.ProductListed);
