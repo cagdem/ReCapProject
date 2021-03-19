@@ -6,6 +6,7 @@ using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -43,6 +44,11 @@ namespace Bussiness.Concrete
         public IDataResult<List<Rental>> GetAll()
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.RentalListed);
+        }
+
+        public IDataResult<List<RentalDto>> GetRentalDetails()
+        {
+            return new SuccessDataResult<List<RentalDto>>(_rentalDal.GetRentalDetails(), Messages.RentalListed);
         }
 
         [ValidationAspect(typeof(RentalValidator))]
