@@ -20,9 +20,14 @@ namespace Bussiness.Concrete
     public class ProductManager : IProductService
     {
         IProductDal _productDal;
-        public ProductManager(IProductDal productDal)
+        IBrandService _brandService;
+        IColorService _colorService;
+
+        public ProductManager(IProductDal productDal, IBrandService brandService, IColorService colorService)
         {
             _productDal = productDal;
+            _brandService = brandService;
+            _colorService = colorService;
         }
 
         [SecuredOperation("product.add,admin")]
@@ -50,9 +55,25 @@ namespace Bussiness.Concrete
             return new SuccessDataResult<Car>(_productDal.Get(c => c.Id == id), Messages.ProductListed);
         }
 
-        public IDataResult<List<CarDetailDto>> GetCarDetails()
+        public IDataResult<List<CarDetailDto>> GetCarDetails(int id)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_productDal.GetProductDetails(c=>c.CarId==id), Messages.ProductListed);
+        }
+        public IDataResult<List<CarDetailDto>> GetCarsDetails()
         {
             return new SuccessDataResult<List<CarDetailDto>>(_productDal.GetProductDetails(), Messages.ProductListed);
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByBrandId(int id)
+        {
+            var result = _brandService.GetById(id);
+            return new SuccessDataResult<List<CarDetailDto>>(_productDal.GetProductDetails(c=>c.BrandName==result.Data.BrandName), Messages.ProductListed);
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByColorId(int id)
+        {
+            var result = _colorService.GetById(id);
+            return new SuccessDataResult<List<CarDetailDto>>(_productDal.GetProductDetails(c => c.ColorName == result.Data.ColorName), Messages.ProductListed);
         }
 
         public IDataResult<List<Car>> GetCarsByBrandId(int id)

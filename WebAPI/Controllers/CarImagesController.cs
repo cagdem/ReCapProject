@@ -29,17 +29,19 @@ namespace WebAPI.Controllers
         [HttpPost("add")]
         public IActionResult Add([FromForm] FileUpload image, [FromForm] CarImage carImage)
         {
-            var path = _webHostEnvironment.WebRootPath + "\\uploads\\";
+            //var path = _webHostEnvironment.WebRootPath + "\\uploads\\";
+            var root = "C:\\kamp-frontend\\RentACar\\src";
+            var path = "\\assets\\images\\";
             string imagePath = null;
             if (image.files != null)
             {
                 string ext = System.IO.Path.GetExtension(image.files.FileName);
                 string name = Guid.NewGuid().ToString();
-                if (!Directory.Exists(path))
+                if (!Directory.Exists(root+path))
                 {
-                    Directory.CreateDirectory(path);
+                    Directory.CreateDirectory(root+path);
                 }
-                using (FileStream fileStream = System.IO.File.Create(path + name + ext))
+                using (FileStream fileStream = System.IO.File.Create(root + path + name + ext))
                 {
                     image.files.CopyTo(fileStream);
                     fileStream.Flush();
@@ -83,9 +85,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("list")]
-        public IActionResult List(int id)
+        public IActionResult List(int carId)
         {
-            var result = _carImageService.GetById(id);
+            var result = _carImageService.List(carId);
             foreach (var image in result.Data)
             {
                 if (image.ImagePath == null)
@@ -98,6 +100,18 @@ namespace WebAPI.Controllers
                 return Ok(result);
             }
             return BadRequest(result);
+        }
+
+        [HttpGet("getCount")]
+        public IActionResult GetCount(int carId)
+        {
+            var result = _carImageService.GetCountById(carId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+ 
         }
 
     }

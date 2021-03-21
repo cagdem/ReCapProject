@@ -91,5 +91,11 @@ namespace Bussiness.Concrete
             return new SuccessResult();
         }
 
+        public IDataResult<int> GetCountById(int id)
+        {
+            return new SuccessDataResult<int>(_carImageDal.GetAll(c => c.CarId == id).Count);
+        }
+
+
     }
 }

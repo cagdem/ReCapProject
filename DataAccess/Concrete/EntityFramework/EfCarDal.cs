@@ -6,12 +6,13 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq.Expressions;
 
 namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCarDal : EfEntityRepositoryBase<Car, InMemoryDbContext>, IProductDal
     {
-        public List<CarDetailDto> GetProductDetails()
+        public List<CarDetailDto> GetProductDetails(Expression<Func<CarDetailDto, bool>> filter = null)
         {
             using (InMemoryDbContext context = new InMemoryDbContext())
             {
@@ -22,12 +23,17 @@ namespace DataAccess.Concrete.EntityFramework
                              on p.BrandId equals b.BrandId
                              select new CarDetailDto
                              {
-                                 BrandName = b.BrandName, CarName = p.CarName,
-                                 ColorName = c.ColorName, DailyPrice = p.DailyPrice
+                                 CarId = p.Id,
+                                 BrandName = b.BrandName,
+                                 CarName = p.CarName,
+                                 ColorName = c.ColorName,
+                                 DailyPrice = p.DailyPrice
                              };
 
+                return filter == null
+                    ? result.ToList()
+                    : result.Where(filter).ToList();
 
-                    return result.ToList();
             }
         }
     }

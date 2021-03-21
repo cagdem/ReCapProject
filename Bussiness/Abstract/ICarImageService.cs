@@ -14,6 +14,7 @@ namespace Bussiness.Abstract
         IDataResult<List<CarImage>> List(int id);
         IDataResult<List<CarImage>> GetAll();
         IDataResult<List<CarImage>> GetById(int id);
+        IDataResult<int> GetCountById(int id);
 
     }
 }
