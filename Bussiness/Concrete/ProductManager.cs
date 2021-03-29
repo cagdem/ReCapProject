@@ -13,6 +13,7 @@ using Entities.DTOs;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Bussiness.Concrete
@@ -55,9 +56,9 @@ namespace Bussiness.Concrete
             return new SuccessDataResult<Car>(_productDal.Get(c => c.Id == id), Messages.ProductListed);
         }
 
-        public IDataResult<List<CarDetailDto>> GetCarDetails(int id)
+        public IDataResult<CarDetailDto> GetCarDetails(int id)
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_productDal.GetProductDetails(c=>c.CarId==id), Messages.ProductListed);
+            return new SuccessDataResult<CarDetailDto>(_productDal.GetProductDetails(c=>c.CarId==id).SingleOrDefault(), Messages.ProductListed);
         }
         public IDataResult<List<CarDetailDto>> GetCarsDetails()
         {

@@ -9,6 +9,7 @@ using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Bussiness.Concrete
@@ -57,5 +58,11 @@ namespace Bussiness.Concrete
             _rentalDal.Update(rental);
             return new SuccessResult(Messages.RentalUpdated);
         }
+
+        public IDataResult<List<RentalDto>> GetRentalDetailsByCarId(int carId)
+        {            
+            return new SuccessDataResult<List<RentalDto>>(_rentalDal.GetRentalDetails(r=>r.CarId == carId), Messages.RentalListed);
+        }
+
     }
 }

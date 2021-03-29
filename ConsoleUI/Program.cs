@@ -14,7 +14,7 @@ namespace ConsoleUI
             //BrandTest();
             //ColorTest();
 
-            RentalTest();
+            //RentalTest();
 
         }
 

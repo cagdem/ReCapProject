@@ -6,13 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-
+using System.Linq.Expressions;
 
 namespace DataAccess.Concrete.EntityFramework
 {
     public class EfRentalDal : EfEntityRepositoryBase<Rental, InMemoryDbContext>, IRentalDal
     {
-        public List<RentalDto> GetRentalDetails()
+        public List<RentalDto> GetRentalDetails(Expression<Func<RentalDto, bool>> filter=null)
         {
             using (InMemoryDbContext context = new InMemoryDbContext())
             {
@@ -27,7 +27,8 @@ namespace DataAccess.Concrete.EntityFramework
                              on cus.UserId equals u.Id
                              select new RentalDto
                              {
-                                 BrandName=b.BrandName,
+                                 CarId = r.CarId,
+                                 BrandName = b.BrandName,
                                  FirstName = u.FirstName,
                                  LastName = u.LastName,
                                  RentDate = r.RentDate,
@@ -35,9 +36,12 @@ namespace DataAccess.Concrete.EntityFramework
 
                              };
 
-                return result.ToList();
-                             
+                return filter == null
+                 ? result.ToList()
+                 : result.Where(filter).ToList();
+
             }
         }
+
     }
 }
