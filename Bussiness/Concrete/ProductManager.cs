@@ -31,7 +31,7 @@ namespace Bussiness.Concrete
             _colorService = colorService;
         }
 
-        //[SecuredOperation("product.add,admin")]
+        [SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Car car)
         {
@@ -45,6 +45,7 @@ namespace Bussiness.Concrete
             return new SuccessResult(Messages.ProductDeleted);
         }
 
+        [SecuredOperation("product.add,admin")]
         [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {

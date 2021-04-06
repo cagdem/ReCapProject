@@ -78,9 +78,9 @@ namespace WebAPI
 
             app.UseRouting();
 
-            app.UseAuthentication();
-
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

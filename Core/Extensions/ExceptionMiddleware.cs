@@ -44,16 +44,16 @@ namespace Core.Extensions
 
                 return httpContext.Response.WriteAsync(new ValidationErrorDetails
                 {
-                    StatusCode = 400,
-                    Message = message,
-                    Errors = errors
+                    success = true,
+                    message = message,
+                    errors = errors
                 }.ToString());
             }
 
             return httpContext.Response.WriteAsync(new ErrorDetails
             {
-                StatusCode = httpContext.Response.StatusCode,
-                Message = message
+                //StatusCode = httpContext.Response.StatusCode,
+                message = message
             }.ToString());
         }
     }
