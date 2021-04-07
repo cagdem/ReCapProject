@@ -38,5 +38,9 @@ namespace Bussiness.Constants
         public static string PaymentIsValid = "Odeme onaylandi";
         public static string PaymentIsNotValid = "Odeme onaylanmadi";
 
+        public static string FindeksIsEnough = "Findeks puaniniz yeterli. Isleme devam edebilirsiniz.";
+        public static string FindeksIsNotEnough = "Findeks puaniniz bu araba icin yetersiz.";
+
+
     }
 }

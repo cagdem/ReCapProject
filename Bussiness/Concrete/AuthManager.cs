@@ -24,7 +24,7 @@ namespace Bussiness.Concrete
         {
             var claims = _userService.GetClaims(user);
             var accessToken = _tokenHelper.CreateToken(user, claims);
-            return new SuccessDataResult<AccessToken>(accessToken, "token olusturuldu.");
+            return new SuccessDataResult<AccessToken>(accessToken, "Giris basarili.");
         }
 
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
@@ -56,7 +56,7 @@ namespace Bussiness.Concrete
                 Status = true
             };
             _userService.Add(user);
-            return new SuccessDataResult<User>(user, "Kayit oldu");
+            return new SuccessDataResult<User>(user, "Kayit olundu");
 
         }
 
