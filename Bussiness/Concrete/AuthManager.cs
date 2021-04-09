@@ -68,5 +68,39 @@ namespace Bussiness.Concrete
             }
             return new SuccessResult();
         }
+
+        public IDataResult<UserForRegisterDto> Get(string userEmail)
+        {
+            var user = _userService.GetByMail(userEmail);
+            var userToSend = new UserForRegisterDto
+            {
+                Id = user.Id,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Password = ""
+            };
+            return new SuccessDataResult<UserForRegisterDto>(userToSend);
+
+        }
+
+        public IDataResult<User> Update(UserForRegisterDto user)
+        {
+            byte[] passwordHash, passwordSalt;
+ //           var oldUser = _userService.GetByMail(user.Email);
+            HashingHelper.CreatePasswordHash(user.Password, out passwordHash, out passwordSalt);
+            var newUser = new User
+            {
+                Id=user.Id,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                Status = true
+            };
+            _userService.Update(newUser);
+            return new SuccessDataResult<User>(newUser,"Bilgileriniz guncellendi.");
+        }
     }
 }

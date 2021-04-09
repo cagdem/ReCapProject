@@ -55,5 +55,32 @@ namespace WebAPI.Controllers
 
             return BadRequest(registerResult);
         }
+
+        [HttpPost("update")]
+        public ActionResult Update(UserForRegisterDto userForRegisterDto)
+        {
+
+                var result = _authService.Update(userForRegisterDto);
+                if (result.Success)
+                {
+                    return Ok(result);
+                }
+                return BadRequest(result);
+
+
+        }
+
+        [HttpGet("get")]
+        public IActionResult Get(string userEmail)
+        {
+            var result = _authService.Get(userEmail);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
     }
 }

@@ -35,5 +35,12 @@ namespace Bussiness.Concrete
         {
             return _userDal.GetClaims(user);
         }
+
+        public void Update(User user)
+        {
+            _userDal.Update(user);
+        }
+
+        
     }
 }
