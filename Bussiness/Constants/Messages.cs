@@ -32,6 +32,7 @@ namespace Bussiness.Constants
         public static string AuthorizationDenied = "yetkiniz yok";
 
         public static string PaymentAdded = "Odeme secenegi eklendi";
+        public static string PaymentSaved = "Odeme secenegi kaydedildi";
         public static string PaymentDeleted = "Odeme secenegi silindi";
         public static string PaymentUpdated = "Odeme secenegi guncellendi";
 

@@ -26,6 +26,7 @@ namespace Bussiness.DependencyResolvers.Autofac
             builder.RegisterType<CarImageManager>().As<ICarImageService>().SingleInstance();
             builder.RegisterType<PaymentManager>().As<IPaymentService>().SingleInstance();
             builder.RegisterType<FindeksManager>().As<IFindeksService>().SingleInstance();
+            builder.RegisterType<SavePaymentManager>().As<ISavePaymentService>().SingleInstance();
 
 
 
@@ -43,7 +44,7 @@ namespace Bussiness.DependencyResolvers.Autofac
             builder.RegisterType<EfPaymentDal>().As<IPaymentDal>().SingleInstance();
             builder.RegisterType<EfFindeksOfCarDal>().As<IFindeksOfCarDal>().SingleInstance();
             builder.RegisterType<EfFindeksOfUserDal>().As<IFindeksOfUserDal>().SingleInstance();
-
+            builder.RegisterType<EfSavePaymentDal>().As<ISavePaymentDal>().SingleInstance();
 
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();

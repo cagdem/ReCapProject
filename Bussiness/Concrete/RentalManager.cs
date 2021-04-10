@@ -31,7 +31,6 @@ namespace Bussiness.Concrete
             {
                 return new ErrorResult(Messages.RentalDenied);
             }
-
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentalAdded);
         }
